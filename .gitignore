@@ -4,3 +4,5 @@
 .terraform
 accounts.json
 gha_ecr_sts_creds
+aviator_pipeline.yml
+workspaces.tf
