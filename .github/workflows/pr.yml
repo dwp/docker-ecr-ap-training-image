@@ -8,6 +8,7 @@ on:
 
 env:
   IMAGE_NAME: docker-ecr-ap-training-image
+  ECR_REQUIREMENTS: ""
 
 jobs:
   docker-build-and-scan:
@@ -15,26 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build Docker image
-        run: docker build -t ${{ env.IMAGE_NAME }}:latest .
+        run:
+          export ECR_REQUIREMENTS ;
+          echo -e "$ECR_REQUIREMENTS" >> environment.yml ;
+          docker build -t ${{ env.IMAGE_NAME }}:latest . -q >/dev/null 2>&1 || echo "Build Failed"
         working-directory: build
 
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v1
-
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v1
-        with:
-          python-version: 3.8
-
-      - name: Run tests
-        run: |
-          pip install -r requirements.txt
-          # python -m pytest -v
-        working-directory: build
-  
   format:
     runs-on: ubuntu-latest
     steps:
@@ -64,4 +51,3 @@ jobs:
           git checkout $GITHUB_HEAD_REF
           git commit -am "Fixup: Format Python code with Black"
           git push
-
