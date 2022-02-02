@@ -4,5 +4,6 @@
 .terraform
 accounts.json
 gha_ecr_sts_creds
-../docker-ecr-ap-python-image/.github/aviator_pipeline.yml
 workspaces.tf
+aviator_pipeline.yml
+.terraform.lock.hcl
