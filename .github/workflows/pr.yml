@@ -16,7 +16,7 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build Docker image
         run:
-          docker build -t ${{ env.IMAGE_NAME }}:latest . -q >/dev/null 2>&1 || echo "Build Failed"
+          docker build -t ${{ env.IMAGE_NAME }}:latest . || echo "Build Failed"
         working-directory: build
 
   format:
