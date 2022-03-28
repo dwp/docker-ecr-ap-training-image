@@ -1,12 +1,13 @@
 #!/bin/bash
 
-set -euo pipefail
+set -euo pipefailz
 
 # Dev First
 DEV_REG_URL="${DEV_AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com"
 AWS_ACCESS_KEY_ID="$DEV_AWS_ACCESS_KEY_ID" \
 AWS_SECRET_ACCESS_KEY="$DEV_AWS_SECRET_ACCESS_KEY" \
 AWS_SESSION_TOKEN="$DEV_AWS_SESSION_TOKEN" \
+
 aws ecr get-login-password --region "$AWS_REGION" | \
 docker login --username AWS --password-stdin "$DEV_REG_URL"
 
