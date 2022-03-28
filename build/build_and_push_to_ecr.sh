@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -euo pipefailz
+set -euo pipefail
 
 # Dev First
 DEV_REG_URL="${DEV_AWS_ACCOUNT}.dkr.ecr.${AWS_REGION}.amazonaws.com"
