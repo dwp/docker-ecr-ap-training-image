@@ -18,7 +18,6 @@ jobs:
       - name: Build Docker image
         run:
           export ECR_REQUIREMENTS ;
-          echo -e "$ECR_REQUIREMENTS" >> environment.yml ;
           docker build -t ${{ env.IMAGE_NAME }}:latest . -q >/dev/null 2>&1 || echo "Build Failed"
         working-directory: build
 
