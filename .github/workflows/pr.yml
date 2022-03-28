@@ -22,9 +22,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@master
-      - name: Get release version
-        id: get_version
-        run: echo RELEASE_VERSION=$(echo ${GITHUB_REF:10}) >> $GITHUB_ENV
       - name: Build Docker Image
         env:
           DEV_AWS_ACCESS_KEY_ID: ${{ secrets.DEV_ECR_AWS_ACCESS_KEY_ID }}
