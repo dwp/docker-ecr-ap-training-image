@@ -30,27 +30,6 @@ jobs:
         run:
           docker build -t ${{ env.IMAGE_NAME }}:latest . || echo "Build Failed"
         working-directory: build
-  docker-publish-dev:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: aws-actions/configure-aws-credentials@v1
-      - name: Build Docker Image
-        env:
-          DEV_AWS_ACCESS_KEY_ID: ${{ secrets.DEV_ECR_AWS_ACCESS_KEY_ID }}
-          DEV_AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_ECR_AWS_SECRET_ACCESS_KEY}}
-          DEV_AWS_SESSION_TOKEN: ${{ secrets.DEV_ECR_AWS_SESSION_TOKEN }}
-          DEV_AWS_ACCOUNT: ${{ secrets.DEV_ECR_AWS_ACCOUNT }}
-          AWS_REGION: eu-west-2
-          SEM_VER: 2
-        run:
-          export DEV_AWS_ACCESS_KEY_ID DEV_AWS_SECRET_ACCESS_KEY DEV_AWS_SESSION_TOKEN ;
-          export AWS_REGION DEV_AWS_ACCOUNT ;
-          chmod 777 ./build-dev.sh ;
-          ./build-dev.sh
-        working-directory: build
-      - name: Login to Amazon ECR
-        id: login-ecr-dev
-        uses: aws-actions/amazon-ecr-login@v1
   format:
     runs-on: ubuntu-latest
     steps:
