@@ -16,10 +16,6 @@ jobs:
       - uses: actions/checkout@v2
       - name: Build Docker image
         env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.ECR_AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.ECR_AWS_SECRET_ACCESS_KEY}}
-          AWS_SESSION_TOKEN: ${{ secrets.ECR_AWS_SESSION_TOKEN }}
-          AWS_ACCOUNT: ${{ secrets.ECR_AWS_ACCOUNT }}
           DEV_AWS_ACCESS_KEY_ID: ${{ secrets.DEV_ECR_AWS_ACCESS_KEY_ID }}
           DEV_AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_ECR_AWS_SECRET_ACCESS_KEY}}
           DEV_AWS_SESSION_TOKEN: ${{ secrets.DEV_ECR_AWS_SESSION_TOKEN }}
