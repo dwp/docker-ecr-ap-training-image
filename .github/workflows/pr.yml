@@ -15,6 +15,19 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build Docker image
+        run:
+          docker build -t ${{ env.IMAGE_NAME }}:latest . || echo "Build Failed"
+        working-directory: build
+
+  docker-publish-dev:
+    runs-on: ubuntu-latest
+    needs: get-publish-version
+    steps:
+      - uses: actions/checkout@master
+      - name: Get release version
+        id: get_version
+        run: echo RELEASE_VERSION=$(echo ${GITHUB_REF:10}) >> $GITHUB_ENV
+      - name: Build Docker Image
         env:
           DEV_AWS_ACCESS_KEY_ID: ${{ secrets.DEV_ECR_AWS_ACCESS_KEY_ID }}
           DEV_AWS_SECRET_ACCESS_KEY: ${{ secrets.DEV_ECR_AWS_SECRET_ACCESS_KEY}}
@@ -25,7 +38,7 @@ jobs:
         run:
           export DEV_AWS_ACCESS_KEY_ID DEV_AWS_SECRET_ACCESS_KEY DEV_AWS_SESSION_TOKEN ;
           export AWS_REGION DEV_AWS_ACCOUNT ;
-          chmod 777 build-dev.sh ;
+          chmod 777 ./build-dev.sh ;
           ./build-dev.sh
         working-directory: build
 
